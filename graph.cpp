@@ -84,7 +84,8 @@ void Graph:: fill_matrix()
 
 void Graph:: print_matrix()
     {
-    std:: cout << matrix.size() << std:: endl;
+    std:: cout << "Matrix size: "<< matrix.size() << std:: endl;
+    std:: cout<< std::endl;
     for (size_t i = 0; i < size; i++)
         {
         for (size_t j = 0; j < size; j++)
@@ -95,7 +96,7 @@ void Graph:: print_matrix()
         }
     }
 
-void print_ways(std::vector<std::vector<int>> ways)
+void Graph:: print_ways(std::vector<std::vector<int>> ways)
     {
     for (size_t i = 0; i < ways.size(); i++)
         {
@@ -119,15 +120,16 @@ void Graph:: print_simple_connects()
         {
         for (int finish_point = 0; finish_point < size; finish_point++)
             {
-            if (start_point != finish_point)
-                {
-                Graph copy_graph = new Graph(this);
-                std::vector<int> way;
-                std::vector<std::vector<int>>ways;
-                copy_graph.find_simple_connects(start_point,finish_point,way,ways);
-                std::cout << std::endl;
-                print_ways(ways);
-                }
+            Graph copy_graph = new Graph(this);
+            std::vector<int> way;
+            std::vector<std::vector<int>>ways;
+            copy_graph.find_simple_connects(start_point,finish_point,way,ways);
+            std::cout << std::endl;
+            std::cout << std::endl;
+            std::cout << "All ways from " << start_point << " to " << finish_point << " : " << std::endl;
+            std::cout << std::endl;
+            print_ways(ways);
+
             }
         }
     }
@@ -202,7 +204,7 @@ void Graph:: find_simple_connects(int start_point,int finish_point,std::vector<i
             {
             for (int i = 0; i < size; i++)
                 {
-                if (( matrix[start_point][i] != 0) && (check_way_exist(i,finish_point)))
+                if ((matrix[start_point][i] != 0) && ( (check_way_exist(i,finish_point)) || (i == finish_point)))
                     {
                     way.push_back(start_point);
                     Graph copy = new Graph(this);
