@@ -60,13 +60,7 @@ int Graph:: check_node_exist(int node_number)
 void Graph:: add_node(std::vector<int> new_node)
     {
     size++;
-    matrix.resize(size);
-    for (int i = 0; i < size; i++)
-        {
-        matrix[i].resize(size);
-        matrix[i][size-1] = new_node[i];
-        matrix[size-1][i] = new_node[i];
-        }
+    matrix.push_back(new_node);
     }
 
 void Graph:: fill_matrix()
@@ -96,7 +90,7 @@ void Graph:: print_matrix()
         }
     }
 
-void Graph:: print_ways(std::vector<std::vector<int>> ways)
+void Graph:: print_ways (std::vector<std::vector<int> > ways)
     {
     for (size_t i = 0; i < ways.size(); i++)
         {
@@ -113,6 +107,7 @@ void Graph:: print_ways(std::vector<std::vector<int>> ways)
             }
         }
     }
+
 
 void Graph:: print_simple_connects()
     {
@@ -134,7 +129,6 @@ void Graph:: print_simple_connects()
         }
     }
 
-
 void Graph:: delete_loop(int start_point)
     {
     for (int finish_point = 0; finish_point < size; finish_point++)
@@ -146,11 +140,19 @@ void Graph:: delete_loop(int start_point)
         }
     }
 
+void Graph:: delete_all_loops()
+    {
+    for (int i = 0; i < size; i++)
+        {
+        delete_loop(i);
+        }
+    }
+
 int Graph:: check_way_exist(int start_point,int finish_point) 
     {
     Graph copy_to_find = new Graph(this);
     std::vector<int> way_out_one;
-    std::vector<std::vector<int>> ways_out;
+    std::vector<std::vector<int> > ways_out;
 
     for (int i = 0; i < copy_to_find.size; i++)
         {
@@ -188,7 +190,7 @@ int Graph:: check_way_exist(int start_point,int finish_point)
     return 0;
     }
 
-void Graph:: find_simple_connects(int start_point,int finish_point,std::vector<int> &way,std::vector<std::vector<int>> &ways)
+void Graph:: find_simple_connects(int start_point,int finish_point,std::vector<int> &way,std::vector<std::vector<int> > &ways)
     {
     delete_loop(start_point);
     if (start_point == finish_point)
@@ -215,4 +217,5 @@ void Graph:: find_simple_connects(int start_point,int finish_point,std::vector<i
             }
         }
     }
+
 
