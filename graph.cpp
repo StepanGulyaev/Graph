@@ -102,9 +102,10 @@ void Graph:: print_ways (std::vector<std::vector<int> > ways)
                 }
             else
                 {
-                std::cout << ways[i][j] << std::endl;
+                std::cout << ways[i][j] << " " ;
                 }
             }
+        std::cout << " Way length: "<< way_length(ways[i]) << std::endl;
         }
     }
 
@@ -217,5 +218,18 @@ void Graph:: find_simple_connects(int start_point,int finish_point,std::vector<i
             }
         }
     }
+
+
+int Graph:: way_length( std::vector<int> way)
+    {
+    int length = 0;
+    for (size_t i = 0; i < way.size()-1; i++)
+        {
+        length += matrix[way[i]][way[i+1]];
+        }
+    return length;
+    }
+
+
 
 
